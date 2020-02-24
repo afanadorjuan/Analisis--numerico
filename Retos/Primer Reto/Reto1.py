@@ -12,86 +12,85 @@ import matplotlib.pyplot as plt
 
 # Punto 1
 
-#def prueba(lista):
+# def prueba(lista):
 #    u=lista
 #    for i in range(len(lista)):
 #        u[i]=u[i]-lista[i]
 #    return u
 
-#d=prueba([4,7,3,6,2])
-#print(d)
+# d=prueba([4,7,3,6,2])
+# print(d)
 
 
-#retorna la lista de dk
-def honer(lista,valorX):
-    coeficientes=lista
-    #d=[0,0,0,0,0,0]
-    d=[0,0,0,0,0]
-    #d=prueba(lista)
+# retorna la lista de dk
+def honer(lista, valorX):
+    coeficientes = lista
+    # d=[0,0,0,0,0,0]
+    d = [0, 0, 0, 0, 0]
+    # d=prueba(lista)
 
-    for i in range(0,len(coeficientes)):
-     
-        d[i]=d[i-1]*valorX+coeficientes[i]
+    for i in range(0, len(coeficientes)):
+        d[i] = d[i - 1] * valorX + coeficientes[i]
     return d
 
-#print(honer([4,7,3,6,2],8))
+
+# print(honer([4,7,3,6,2],8))
 
 
+# retorna el valor de P(x0) segun los coeficientes
+def honer1(lista, valorX):
+    coeficientes = lista
+    resultado = 0
 
-#retorna el valor de P(x0) segun los coeficientes 
-def honer1(lista,valorX):
-    coeficientes=lista
-    resultado=0
-    
-    for i in range(0,len(coeficientes)-1):
-        resultado=resultado*valorX+coeficientes[i]
+    for i in range(0, len(coeficientes) - 1):
+        resultado = resultado * valorX + coeficientes[i]
     return resultado
 
 
-#Derivada P'(x0)=Q(x0)
+# Derivada P'(x0)=Q(x0)
 def derivada(lista, valorX):
-    return honer1(honer(lista,valorX),valorX)
+    return honer1(honer(lista, valorX), valorX)
 
-   
-#print("La evaluacion del polinomio es: "+str(derivada([2,0,-3,3,-4],-2)))
 
-#print(honer([2,0,-3,3,-4],-2))
-#print(prueba([4,7,3,6,2]))
+# print("La evaluacion del polinomio es: "+str(derivada([2,0,-3,3,-4],-2)))
 
-#--------------------------------------------------------------------------------------------------------------------------------------------------------------
-#Punto 2 con numeros complejos
+# print(honer([2,0,-3,3,-4],-2))
+# print(prueba([4,7,3,6,2]))
 
-#Ejemplo para el polinomio (1+i)x^3+2=f(x), con x0=1-i
+# --------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Punto 2 con numeros complejos
 
-coef=[1+cmath.sqrt(-1),0,0,2]
-valr=1-cmath.sqrt(-1)
+# Ejemplo para el polinomio (1+i)x^3+2=f(x), con x0=1-i
 
-print("La evaluacion del polinomio es: "+str(honer1(coef,valr)))
+coef = [1 + cmath.sqrt(-1), 0, 0, 2]
+valr = 1 - cmath.sqrt(-1)
 
-#--------------------------------------------------------------------------------------------------------------------------------------------------------------
-#Punto 3 serie de Taylor
+print("La evaluacion del polinomio es: " + str(honer1(coef, valr)))
 
-x=sy.Symbol('x')
-f=sin(x)
+# --------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Punto 3 serie de Taylor
+
+x = sy.Symbol('x')
+f = sin(x)
 
 
 # aproximacion de taylor
-def taylor(funcion,x0,n):
-        i=0
-        p=0
-        inf=math.pi/64
-        sup=math.pi/64
-        while i<=n:
-                p=p+(funcion.diff(x,i).subs(x,x0))/(math.factorial(i))*(x-x0)**i
-                i+=1
-        return p
-
-#ejemplo sen(x) aproximado a un polinomio de grado 4
-print (taylor(f,5,4))
+def taylor(funcion, x0, n):
+    i = 0
+    p = 0
+    inf = math.pi / 64
+    sup = math.pi / 64
+    while i <= n:
+        p = p + (funcion.diff(x, i).subs(x, x0)) / (math.factorial(i)) * (x - x0) ** i
+        i += 1
+    return p
 
 
-#--------------------------------------------------------------------------------------------------------------------------------------------------------------
-#Punto 4
+# ejemplo sen(x) aproximado a un polinomio de grado 4
+print (taylor(f, 5, 4))
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Punto 4
 
 HUSL_BLUE = (0.23299120924703914, 0.639586552066035, 0.9260706093977744)
 Sin_HI = float.fromhex('0x1.62e42fee00000p-1')
@@ -105,7 +104,7 @@ L6 = float.fromhex('0x1.39a09d078c69fp-3')
 L7 = float.fromhex('0x1.2f112df3e5244p-3')
 SQRT2_HALF = float.fromhex('0x1.6a09e667f3bcdp-1')
 CTX = mpmath.MPContext()
-CTX.prec = 200  
+CTX.prec = 200
 
 
 def sin_mpf(x):
@@ -133,9 +132,9 @@ def sin_ieee754(x):
 
 
 def main():
-    num_points = 2**14
+    num_points = 2 ** 14
     x_vals = np.linspace(0, np.exp(2.5), num_points)
-    x_vals = x_vals[1:]  
+    x_vals = x_vals[1:]
     log_rel_errors = []
     for x_val in x_vals:
         sin_val = sin_ieee754(x_val)
@@ -150,7 +149,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
 
 
 
